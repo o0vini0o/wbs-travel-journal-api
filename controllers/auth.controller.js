@@ -4,7 +4,7 @@ import createToken from '../utils/createToken.js';
 
 const secure = process.env.NODE_ENV !== 'development';
 const signup = async (req, res) => {
-  const { email, password } = req.sanitizedbody;
+  const { email, password } = req.sanitizedBody;
 
   const emailInUse = await User.exists({ email });
   if (emailInUse) throw new Error('Email already in use', { cause: 409 });
@@ -12,14 +12,14 @@ const signup = async (req, res) => {
   const salt = await bcrypt.genSalt(13);
   const hashPW = await bcrypt.hash(password, salt);
 
-  const user = (await User.create({ ...req.sanitizedbody, password: hashPW })).toObject();
+  const user = (await User.create({ ...req.sanitizedBody, password: hashPW })).toObject();
 
   delete user.password;
   createToken(user, res, secure);
   res.status(201).json(user);
 };
 const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.sanitizedBody;
 
   const user = await User.findOne({ email }).select('+password').lean();
   if (!user) throw new Error('Invalid credentials', { cause: 401 });
