@@ -1,10 +1,13 @@
 import { z } from 'zod/v4';
 
 export const userSchema = z.object({
-  firstName: z.string().min(1),
-  lastName: z.string().min(1),
-  email: z.string(),
-  password: z.string().min(8).max(12)
+  firstName: z.string('firstName must be a string').min(1, 'firstName is required'),
+  lastName: z.string('lastName must be a string').min(1, 'lastName is required'),
+  email: z.string('email must be a string'),
+  password: z
+    .string('password must be a string')
+    .min(8, 'password must longer than 8')
+    .max(12, 'password must not longer than 8')
 });
 
 export const signInSchema = userSchema.omit({ firstName: true, lastName: true });
