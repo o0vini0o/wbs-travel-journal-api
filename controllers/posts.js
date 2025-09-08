@@ -9,7 +9,8 @@ export const getAllPosts = async (req, res) => {
 export const createPost = async (req, res) => {
   const { _id } = req.user;
   const { sanitizedBody } = req;
-  const newPost = await (await Post.create({ sanitizedBody, author: _id })).populate('author');
+  const post = await Post.create({ ...sanitizedBody, author: _id });
+  const newPost = await post.populate('author');
   res.status(201).json(newPost);
 };
 

@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import { postsRouter, authRouter } from './routes/index.js';
 import errorHandler from './middlewares/errorHandler.js';
-import cookieParse from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -14,7 +14,7 @@ const port = process.env.PORT || 8000;
 //Option 2
 // CLIENT_URL -> http://localhost:5173  || https.//mydeployedsite.onrender.com
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
-app.use(express.json(), cookieParse());
+app.use(express.json(), cookieParser());
 
 app.use('/posts', postsRouter);
 // app.use('/users', usersRouter);

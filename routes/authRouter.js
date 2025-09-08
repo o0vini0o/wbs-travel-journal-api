@@ -7,7 +7,7 @@ import { signInSchema, userSchema } from '../zod/schemas.js';
 const authRouter = Router();
 authRouter.route('/signup').post(validateZod(userSchema), signup);
 authRouter.route('/signin').post(validateZod(signInSchema), login);
-authRouter.route('/signout').delete(login);
+authRouter.route('/signout').delete(logout);
 
 authRouter.route('/me').get(verifyToken, me);
 export default authRouter;

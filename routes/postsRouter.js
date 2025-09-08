@@ -6,6 +6,7 @@ import { postSchema } from '../zod/schemas.js';
 const postsRouter = Router();
 
 postsRouter.route('/').get(getAllPosts).post(verifyToken, validateZod(postSchema), createPost);
+// postsRouter.route('/').get(getAllPosts).post(verifyToken, createPost);
 
 postsRouter
   .route('/:id')

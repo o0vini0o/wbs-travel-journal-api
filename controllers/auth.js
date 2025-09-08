@@ -35,12 +35,12 @@ const login = async (req, res) => {
 };
 
 const logout = (req, res) => {
-  cookieOptios = {
+  const cookieOptions = {
     httpOnly: true,
     secure: isProduction,
     sameSite: isProduction ? 'none' : 'lax'
   };
-  res.clearCookie('token', cookieOptios);
+  res.clearCookie('token', cookieOptions);
   res.json({ msg: 'logout successfully' });
 };
 

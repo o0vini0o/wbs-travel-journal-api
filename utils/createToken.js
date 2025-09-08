@@ -7,7 +7,7 @@ const createToken = (user, res, isProduction) => {
     expiresIn: process.env.JWT_EXPIRE_IN_DAYS + 'd'
   };
   const token = jwt.sign(payload, jwtSecret, jwtOption);
-  cookieOptios = {
+  const cookieOptions = {
     httpOnly: true,
     secure: isProduction,
     sameSite: isProduction ? 'none' : 'lax'
