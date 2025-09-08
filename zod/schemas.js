@@ -1,5 +1,6 @@
 import { z } from 'zod/v4';
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!.@#$%^&*])/;
+const authorRegex = /^[0-9a-fA-F]{24}$/;
 
 export const userSchema = z
   .object({
@@ -20,6 +21,6 @@ export const signInSchema = userSchema.omit({ firstName: true, lastName: true, c
 export const postSchema = z.object({
   title: z.string('Title must be a string').min(1, 'Title is required'),
   image: z.string('Image must be a string').min(1, 'Image is required'),
-  content: z.string('Content must be a string').min(1, 'Content is required')
-  // author: z.string('Author must be a string').min(1, 'Author is required')
+  content: z.string('Content must be a string').min(1, 'Content is required'),
+  author: z.string('Author must be a string').regex(authorRegex)
 });

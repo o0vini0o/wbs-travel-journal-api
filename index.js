@@ -7,8 +7,13 @@ import cookieParse from 'cookie-parser';
 
 const app = express();
 const port = process.env.PORT || 8000;
+//Option 1
+// const origin = process.env.NODE_ENV === 'production' ? 'https://frontend.com' : 'http://localhost:5173';
+// app.use(cors({ origin: origin, credentials: true }));
 
-app.use(cors({ origin: '*' }));
+//Option 2
+// CLIENT_URL -> http://localhost:5173  || https.//mydeployedsite.onrender.com
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json(), cookieParse());
 
 app.use('/posts', postsRouter);

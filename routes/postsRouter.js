@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { validateZod, verifyToken, isOwner } from '../middlewares/index.js';
+import { validateZod, verifyToken } from '../middlewares/index.js';
 import { createPost, deletePost, getAllPosts, getSinglePost, updatePost } from '../controllers/posts.js';
 import { postSchema } from '../zod/schemas.js';
 
@@ -10,7 +10,7 @@ postsRouter.route('/').get(getAllPosts).post(verifyToken, validateZod(postSchema
 postsRouter
   .route('/:id')
   .get(getSinglePost)
-  .put(verifyToken, isOwner, validateZod(postSchema), updatePost)
-  .delete(verifyToken, isOwner, deletePost);
+  .put(verifyToken, validateZod(postSchema), updatePost)
+  .delete(verifyToken, deletePost);
 
 export default postsRouter;
